@@ -4,9 +4,10 @@ import { AuthModule } from './auth/auth.module';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { PrismaService } from './prisma.service';
+import { GoogleOauthModule } from './google-oauth/google-oauth.module';
 
 @Module({
-  imports: [AuthModule, UsersModule],
+  imports: [AuthModule, UsersModule, GoogleOauthModule],
   controllers: [AppController],
   providers: [PrismaService, UsersService],
 })

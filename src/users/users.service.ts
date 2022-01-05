@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User, Prisma } from '@prisma/client';
+import { User, Prisma, UserProvider } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { BCRYPT_SALT } from './constants';
 
@@ -80,6 +80,30 @@ export class UsersService {
     return this.prisma.user.findFirst({
       where: {
         email,
+      },
+    });
+  }
+
+  async findUserProviderByProviderId(
+    provider: string,
+    providerId: string,
+  ): Promise<UserProvider | undefined> {
+    return this.prisma.userProvider.findFirst({
+      where: {
+        provider,
+        providerId,
+      },
+    });
+  }
+
+  async createUserProvider(
+    provider: string,
+    providerId: string,
+  ): Promise<UserProvider> {
+    return this.prisma.userProvider.create({
+      data: {
+        provider,
+        providerId,
       },
     });
   }
